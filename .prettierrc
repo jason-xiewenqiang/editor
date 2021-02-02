@@ -1,0 +1,10 @@
+{
+  "printWidth": 120,
+  "semi": true,
+  "tabWidth": 2,
+  "proseWrap": "preserve",
+  "jsxBracketSameLine": true,
+  "[typescript]": {
+    "editor.formatOnSave": true
+  }
+}
