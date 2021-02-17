@@ -1,6 +1,6 @@
 <template>
   <div class="process" id="process">
-    <my-menu :show="showMenu" :x="x" :y="y"/>
+    <my-menu :show="showMenu" :x="x" :y="y" :ee="ee"/>
     <div id="my" class="process-container"></div>
     <el-drawer
       title="我是标题"
@@ -96,6 +96,10 @@ export default defineComponent({
     ee.on('test', (msg: string | number | boolean | object) => {
       // console.log('event-emitter test ', msg);
     });
+    ee.on('menu-click', (info: object) => {
+      console.log('menu-click test ', info);
+      showMenu.value = false;
+    });
     onBeforeRouteLeave(() => {
       // console.log('abc');
     });
@@ -105,7 +109,7 @@ export default defineComponent({
     };
     const { x, y } = toRefs(menuPosition);
     return {
-      showMenu, x, y, handleClose, drawer,
+      showMenu, x, y, handleClose, drawer, ee,
     };
   },
   components: {
