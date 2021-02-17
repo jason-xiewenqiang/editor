@@ -1,11 +1,23 @@
-import { GraphOptions, Graph } from '@antv/g6';
+import { Graph, GraphOptions } from '@antv/g6';
 import { Emitter } from 'event-emitter';
+import registry from '@/lib/Registry';
+import FakeData from './fake-nodes';
+import { createNode } from './create';
+
+interface Rect {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
 
 // editor config
 interface ProcessConfig {
   base: GraphOptions;
   hooks: Hooks;
   emitter: Emitter;
+  data?: Array<object> | undefined;
+  rect?: Rect | undefined;
 }
 
 // canvas hooks
@@ -22,8 +34,11 @@ export default class Process {
 
   constructor(config: ProcessConfig) {
     this.emitter = config.emitter;
+    registry();
     this.graph = new Graph(config.base);
     this.registryHooks((config.hooks as Hooks));
+    this.render();
+    (window as any).graph = this.graph;
   }
 
   // registry hooks -- listen user action
@@ -40,5 +55,13 @@ export default class Process {
   // get graph instance
   getGraph(): Graph {
     return this.graph;
+  }
+
+  // render data
+  render() {
+    const nodes = FakeData.nodes.map((node: any) => createNode(node.shape, node));
+    console.log(nodes);
+    this.graph.data({ nodes, edges: FakeData.edges });
+    this.graph.render();
   }
 }
