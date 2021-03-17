@@ -1,6 +1,6 @@
 import { Graph, GraphOptions } from '@antv/g6';
 import { Emitter } from 'event-emitter';
-import registry from '@/lib/Registry';
+import registry from './registry';
 import FakeData from './fake-nodes';
 import { createNode } from './create';
 
