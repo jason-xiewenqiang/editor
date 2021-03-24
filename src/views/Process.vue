@@ -13,6 +13,8 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable func-names */
+
 import {
   defineComponent, onMounted, ref, reactive, toRefs,
 } from 'vue';
@@ -60,32 +62,31 @@ export default defineComponent({
           plugins: [new Grid()],
         },
         hooks: {
-          click: (ev: MouseEvent) => { console.log('click', ev); },
           'node:click': () => {
-            console.log('node click');
             showMenu.value = false;
             drawer.value = true;
           },
           'edge:click': () => {
-            console.log('edge click');
             showMenu.value = false;
             drawer.value = false;
           },
-          'canvas:contextmenu': (ev: MouseEvent) => {
+          'canvas:contextmenu': () => {
             window.oncontextmenu = function () {
               return true;
             };
             showMenu.value = false;
             drawer.value = false;
           },
-          'canvas:click': (ev: MouseEvent) => {
+          'canvas:click': () => {
             showMenu.value = false;
           },
           'node:contextmenu': function (ev: MouseEvent) {
             window.oncontextmenu = function () {
               return false;
             };
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             menuPosition.x = (ev as any).canvasX + 5;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             menuPosition.y = (ev as any).canvasY + 5;
             showMenu.value = true;
           },
@@ -93,11 +94,8 @@ export default defineComponent({
         emitter: ee,
       });
     });
-    ee.on('test', (msg: string | number | boolean | object) => {
-      // console.log('event-emitter test ', msg);
-    });
-    ee.on('menu-click', (info: object) => {
-      console.log('menu-click test ', info);
+    ee.on('menu-click', () => {
+      console.log('aaaa');
       showMenu.value = false;
     });
     onBeforeRouteLeave(() => {

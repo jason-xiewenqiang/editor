@@ -32,12 +32,12 @@ export default defineComponent({
     const staticData = ['/process', '/strategy', '/form'];
     const state = reactive({
       // eslint-disable-next-line arrow-parens
-      activeIndex: staticData.findIndex(path => path === route.path),
+      activeIndex: String(staticData.findIndex(path => path === route.path)),
     });
-    function selectHanle(val: number) {
+    function selectHanle(val: string) {
       if (val !== state.activeIndex) {
         state.activeIndex = val;
-        router.push({ path: staticData[val] });
+        router.push({ path: staticData[+val] });
       }
     }
     const { activeIndex } = state;
@@ -46,7 +46,7 @@ export default defineComponent({
 });
 </script>
 <style lang="less" scoped>
-/deep/ .el-main {
+::v-deep(.el-main) {
   height: calc(100% - 60px);
   padding: 0;
 }

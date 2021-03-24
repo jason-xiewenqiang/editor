@@ -3,6 +3,7 @@
   "semi": true,
   "tabWidth": 2,
   "proseWrap": "preserve",
+  "singleQuote": true,
   "jsxBracketSameLine": true,
   "[typescript]": {
     "editor.formatOnSave": true

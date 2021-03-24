@@ -28,24 +28,22 @@ export default defineComponent({
       type: Object,
     },
   },
-  setup(props, context) {
-    console.log(props, context);
-  },
-  data() {
-    return {
-      menus: [
-        { name: '任务节点', key: 'user' },
-        { name: '分支节点', key: 'branch' },
-        { name: '会签节点', key: 'countersign' },
-        { name: '子流程节点', key: 'sub-process' },
-      ],
-    };
-  },
-  methods: {
-    menuClick(menu: object) {
+  setup(props: any, context) {
+    console.log('setup params', props, context);
+    const menus = [
+      { name: '任务节点', key: 'user' },
+      { name: '分支节点', key: 'branch' },
+      { name: '会签节点', key: 'countersign' },
+      { name: '子流程节点', key: 'sub-process' },
+    ];
+    const menuClick = (menu: object) => {
       console.log(menu);
-      (this.ee as any).emit('menu-click', menu);
-    },
+      props.ee.emit('menu-click', menu);
+    };
+    return {
+      menuClick,
+      menus,
+    };
   },
 });
 </script>
