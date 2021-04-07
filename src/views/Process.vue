@@ -1,12 +1,17 @@
 <template>
-  <div class="process" id="process">
-    <my-menu :show="showMenu" :x="x" :y="y" :ee="ee"/>
-    <div id="my" class="process-container"></div>
-    <el-drawer
-      title="我是标题"
-      v-model="drawer"
-      direction="rtl"
-      :before-close="handleClose" destroy-on-close>
+  <div class="process"
+       id="process">
+    <my-menu :show="showMenu"
+             :x="x"
+             :y="y"
+             :ee="ee" />
+    <div id="my"
+         class="process-container"></div>
+    <el-drawer title="我是标题"
+               v-model="drawer"
+               direction="rtl"
+               :before-close="handleClose"
+               destroy-on-close>
       <span>我来啦!</span>
     </el-drawer>
   </div>
@@ -21,13 +26,15 @@ import {
 import Process from '@/lib/Process';
 import { Grid } from '@antv/g6';
 import { onBeforeRouteLeave } from 'vue-router';
-// eslint-disable-next-line import/extensions
 import Menu from '../components/Menu.vue';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const eventEmitter = require('event-emitter');
 
 export default defineComponent({
+  components: {
+    'my-menu': Menu,
+  },
   setup() {
     const ee = eventEmitter();
     const showMenu = ref(false);
@@ -39,10 +46,10 @@ export default defineComponent({
     onMounted(() => {
       const bbox: HTMLElement = document.querySelector('#process') as HTMLElement;
       const { width, height } = bbox.getBoundingClientRect();
-      // eslint-disable-next-line no-new
+      /* eslint-disable no-new */
       new Process({
         base: {
-          container: (document.querySelector('#my') as HTMLElement),
+          container: document.querySelector('#my') as HTMLElement,
           width,
           height,
           fitCenter: true,
@@ -84,9 +91,7 @@ export default defineComponent({
             window.oncontextmenu = function () {
               return false;
             };
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             menuPosition.x = (ev as any).canvasX + 5;
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             menuPosition.y = (ev as any).canvasY + 5;
             showMenu.value = true;
           },
@@ -107,12 +112,13 @@ export default defineComponent({
     };
     const { x, y } = toRefs(menuPosition);
     return {
-      showMenu, x, y, handleClose, drawer, ee,
+      showMenu,
+      x,
+      y,
+      handleClose,
+      drawer,
+      ee,
     };
-  },
-  components: {
-    // eslint-disable-next-line vue/no-unused-components
-    'my-menu': Menu,
   },
 });
 </script>
