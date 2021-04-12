@@ -32,12 +32,30 @@
  *    又看源码，看你妹妹呀！
  */
 export default class EventEmitter {
-    protected eventList: Array<object> = []
-    constructor() {}
-    on(eventName: string, fn: Function) {}
-    once(eventName: string, fn: Function) {}
+    protected events;
+    constructor() {
+        this.events = Object.create(null)
+    }
+    on(eventName: string, fn: Function) {
+        if (Reflect.has(this.events, eventName)) {
+            if (typeof this.events[eventName] === 'function') {
+                const preFn = this.events[eventName]
+                this.events[eventName] = [preFn, fn]
+            } else {
+                this.events.push(fn)
+            }
+        } else {
+            this.events[eventName] = fn
+        }
+    }
+    once(eventName: string, fn: Function) {
+    }
     emit(eventName: string, params:Boolean|String|Number|Object|undefined) {}
-    off(eventName: string) {}
-    clean() {}
+    off(eventName: string) {
+
+    }
+    clear() {
+        this.events = Object.create(null)
+    }
 }
 
