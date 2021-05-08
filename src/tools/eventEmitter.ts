@@ -31,31 +31,9 @@
  *
  *    又看源码，看你妹妹呀！
  */
-export default class EventEmitter {
-    protected events;
+class EventEmitter {
+    protected events: object;
     constructor() {
-        this.events = Object.create(null)
-    }
-    on(eventName: string, fn: Function) {
-        if (Reflect.has(this.events, eventName)) {
-            if (typeof this.events[eventName] === 'function') {
-                const preFn = this.events[eventName]
-                this.events[eventName] = [preFn, fn]
-            } else {
-                this.events.push(fn)
-            }
-        } else {
-            this.events[eventName] = fn
-        }
-    }
-    once(eventName: string, fn: Function) {
-    }
-    emit(eventName: string, params:Boolean|String|Number|Object|undefined) {}
-    off(eventName: string) {
-
-    }
-    clear() {
-        this.events = Object.create(null)
+        this.events = {}
     }
 }
-
