@@ -2,14 +2,14 @@
 function throttle(fn, wait) {
   let ctx
   let args
-  let previous
+  let previous = Date.now()
   return function () {
-    let now = +new Date()
+    let now = Date.now()
     ctx = this
     args = arguments
-    if (now - previous > wait) {
+    if (now - previous >= wait) {
       fn.apply(ctx, args)
-      previous = now
+      previous = Date.now()
     }
   }
 }

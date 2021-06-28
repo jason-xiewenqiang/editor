@@ -32,8 +32,17 @@
  *    又看源码，看你妹妹呀！
  */
 class EventEmitter {
-    protected events: object;
+    events;
     constructor() {
+        // {
+        //     event1: [f1, f2],
+        //     event2: [f3]
+        // }
         this.events = {}
     }
+    emit() {}
+    on() {}
+    off() {}
+    once() {}
+    removeAll() {}
 }
